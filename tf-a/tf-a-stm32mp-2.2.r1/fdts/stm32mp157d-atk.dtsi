@@ -225,17 +225,10 @@
 &sdmmc1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
-	disable-wp;
-	st,sig-dir;
 	st,neg-edge;
-	st,use-ckin;
+	broken-cd;
 	bus-width = <4>;
-	vmmc-supply = <&vdd_sd>;
-	sd-uhs-sdr12;
-	sd-uhs-sdr25;
-	sd-uhs-sdr50;
-	sd-uhs-ddr50;
-	sd-uhs-sdr104;
+	vmmc-supply = <&v3v3>;
 	status = "okay";
 };
 
@@ -243,13 +236,10 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
 	non-removable;
-	no-sd;
-	no-sdio;
 	st,neg-edge;
 	bus-width = <8>;
 	vmmc-supply = <&v3v3>;
-	vqmmc-supply = <&vdd>;
-	mmc-ddr-3_3v;
+	vqmmc-supply = <&v3v3>;
 	status = "okay";
 };
 
@@ -266,7 +256,14 @@
 };
 
 &usbotg_hs {
-	vbus-supply = <&vbus_otg>;
+	phys = <&usbphyc_port1 0>;
+	phy-names = "usb2-phy";
+	usb-role-switch;
+	status = "okay";
+};
+
+&usbphyc {
+	status = "okay";
 };
 
 &usbphyc_port0 {
